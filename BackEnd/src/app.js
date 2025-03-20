@@ -2,12 +2,20 @@ const express = require('express');
 
 const app = express();
 
-app.use("/test", (req,res) => {
-    res.send("Hello from the server..");
+app.get("/user", (req,res) => {
+    res.send({fname: "Nish", lname: "Patel"});
 });
 
-app.use("/head", (req,res) => {
-    res.send("This is head...");
+app.post("/user", (req,res) => {
+    res.send("Data is saved in DB");
+});
+
+app.use("/test", (req,res) => {
+    res.send("This is test..");
+});
+
+app.delete("/user", (req,res) => {
+    res.send("Data is deleted");
 });
 
 app.use("/main", (req,res) => {
