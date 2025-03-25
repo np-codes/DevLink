@@ -1,40 +1,31 @@
 const express = require('express');
-
+const connectDB = require('./config/database');
+const User = require('./models/user')
 const app = express();
 
-const { authAdmin, authUser } = require('./middleware/auth.js');
-const e = require('express');
+app.post("/signup", async(req,res) => {
+    const user = new User({
+        firstName: "Dev",
+        lastName: "Patel",
+        emailID: "Dev@gmail.com",
+        password: "098765",
+    });
 
-// Request for Admin
-app.use("/admin", 
-    authAdmin,
-);
-app.get("/admin/getdata", (req,res) => {
-    throw new Error ("Error occured...")
-    res.send("All data");
-});
-app.get("/admin/deletedata", (req,res) => {
-    res.send("Delete Data");
-})
-
-// Request for User
-app.get("/user", 
-    authUser,
-);
-app.get("/user/login",(req,res) => {
-    res.send("User login..")
-});
-app.get("/user/data",(req,res) => {
-    res.send("User data..")
-});
-
-// Error Handling
-app.use("/", (err,req,res,next) => {
-    if(err) {
-        res.status(500).send("Something went wrong")
+    try {
+        await user.save();
+        res.send("New User Added Successfully.");
+    } catch (err) {
+        res.status(400).send("Error Occured : " + err.message);
     }
-})
+    
+});
 
-app.listen(3000, () => {
-    console.log("The serever is created successfully..");
+connectDB().then(() => {
+    console.log("Connection To Cluster Established Successfully..");
+    app.listen(3000, () => {
+        console.log("The Serever Is Created Successfully..");
+    });
+})
+.catch((err) => {
+    console.error("Error In Connecting To Cluster..");
 });
