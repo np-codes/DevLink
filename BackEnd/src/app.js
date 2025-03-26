@@ -3,21 +3,108 @@ const connectDB = require('./config/database');
 const User = require('./models/user')
 const app = express();
 
-app.post("/signup", async(req,res) => {
-    const user = new User({
-        firstName: "Dev",
-        lastName: "Patel",
-        emailID: "Dev@gmail.com",
-        password: "098765",
-    });
+app.use(express.json());
 
+// Adding User 
+app.post("/signup", async(req,res) => {
+    const user = new User(req.body);
     try {
         await user.save();
         res.send("New User Added Successfully.");
     } catch (err) {
         res.status(400).send("Error Occured : " + err.message);
+    }    
+});
+
+// Finding User By Email - .find()
+app.get("/user", async(req,res) => {
+    const userEmail = req.body.emailID;
+    try{
+        const user = await User.find({emailID : userEmail});
+        if (!user) {
+            res.status(404).send(`User With Email: ${userEmail} Was not Found.`);
+        } else {
+            res.send(user);
+        }
+    } catch(err) {
+        res.status(400).send("Error Occured : " + err.message);
+    };
+});
+
+// Finding User By ID - .findbyId()
+app.get("/user/:userID", async(req,res) => {
+    const userID = req.params.userID;
+    try{
+        const user = await User.findById({_id : userID});
+        if (!user) {
+            res.status(404).send(`User With ID: ${userID} Was Not Found.`);
+        } else {
+            res.send(user);
+        }
+    } catch(err) {
+        res.status(400).send("Error Occured : " + err.message);
+    };
+})
+
+// Getting All Users 
+app.get("/feed", async(req,res) => {
+    try{
+        const user = await User.find({});
+        if (!user) {
+            res.status(404).send("The Database is Empty.");
+        } else {
+            res.send(user);
+        }
+    } catch(err) {
+        res.status(400).send("Error Occured : " + err.message);
     }
-    
+});
+
+// Deleting User By ID - .findByIdAndDelete()
+app.delete("/user", async(req,res) => {
+    const userID = req.body.userid;
+    try{
+        const user = await User.findByIdAndDelete(userID);
+        if(!user){
+            res.status(404).send(`User With ID: ${userID} Was Not Found.`);
+        } else { 
+            res.send(`User With ID: ${userID} Is Deleted. `);
+        }
+    } catch(err) {
+        res.status(400).send("Error Occured : " + err.message);
+    }
+});
+
+// Updating User By ID - .findByIdAndUpdate()
+/* app.patch("/user", async(req,res) => {
+    const userID = req.body.userid;
+    const data = req.body;
+    try{
+        const user = await User.findByIdAndUpdate(userID, data);
+        if(!user){
+            res.status(404).send(`User With ID: ${userID} Was not Found.`);
+        } else { 
+            res.send(`User Data With ID: ${userID} Has Been Updated.`);
+        }
+    } catch(err) {
+        res.status(400).send("Error Occured : " + err.message);
+    }
+}); */
+
+// Updating User By Email - .findOneAndUpdate()
+app.patch("/user", async(req,res) => {
+    const userEmailId = req.body.emailID;
+    const data = req.body;
+    try{
+        const user = await User.findOneAndUpdate({emailID : userEmailId}, data);
+        if( !user ){
+            res.status(404).send(`User With Email: ${userEmailId} Was Not Found.`);
+        } else {
+            res.send(`User Data With Email: ${userEmailId} Has Been Updated.`);
+        }
+    } catch(err) {
+        res.status(400).send("Error Occured : " + err.message);
+    }
 });
 
 connectDB().then(() => {
