@@ -104,6 +104,12 @@ const userSchema = new mongoose.Schema({
         },
         skills: {
             type: [String],
+            // Limiting Number Of Skills User Can Add
+            validate(value) {
+                if(value.length > 10){
+                    throw new Error("We Know You Are Highly Skilled. But We Can Only Include 10 Best Of Your Skills.");
+                }  
+            },
         }
     },
     {

@@ -1,27 +1,52 @@
 const express = require('express');
 const connectDB = require('./config/database');
-const User = require('./models/user')
+const User = require('./models/user');
+const  { validateSignUpData } = require('./utils/validator');
+const validator = require("validator");
+const bcrypt = require("bcrypt");
 const app = express();
 
 app.use(express.json());
 
-// Adding User 
+//Signup API
 app.post("/signup", async(req,res) => {
-    const user = new User(req.body);
     try {
-        // Limiting Number Of Skills User Can Add
-        const skillsArray = req.body?.skills;
-        if(skillsArray.length >10){
-            throw new Error("We Know You Are Highly Skilled. But We Can Only Include Best 10 Of Your Skills.")
-        }
-        req.body.skills = skillsArray.map(skill => skill.trim());
-        
+        const {firstName, lastName, emailId, password} = req.body;
+        validateSignUpData(req);
+        const passwordHash = await bcrypt.hash(password, 10);
+        const user = new User({
+            firstName,
+            lastName,
+            emailId,
+            password : passwordHash,
+        });
         await user.save();
         res.send("New User Added Successfully.");
     } catch (err) {
         res.status(400).send("Error Occured : " + err.message);
     }    
 });
+
+// Login API
+app.post("/login", async(req,res) => {
+    try{
+        const { emailId, password } = req.body;
+        if(!validator.isEmail(emailId)){
+            throw new Error(`${emailId} Is Invalid Email.`)
+        }
+        const user = await User.findOne({emailId : emailId });
+        if(!user){
+            throw new Error("Invalid Credentials - Dont Give Up, Try Another Again.");
+        }
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+        if(!isPasswordValid){
+            throw new Error("Invalid Credentials - Dont Give Up, Try Another Again.");
+        }
+        res.send("Login Successfull.")
+    } catch (err) {
+        res.status(400).send("Error Occured : " + err.message);
+    }
+})
 
 // Finding User By Email - .find()
 app.get("/user", async(req,res) => {
@@ -92,14 +117,14 @@ app.patch("/user/:userid", async(req,res) => {
         const notAllowedFields = Object.keys(data).filter((k) => !ALLOWED_UPDATES.includes(k));
         if(notAllowedFields.length > 0){
             throw new Error(`Update Is Not Allowed For Following Fields:\n ${notAllowedFields.join(", ")}`);
-        }
-
-        // Limiting Number Of Skills User Can Add
-        const skillsArray = req.body?.skills;
-        if(skillsArray.length > 10){
-            throw new Error("We Know You Are Highly Skilled. But We Can Only Include Best 10 Of Your Skills.")
-        }
-        req.body.skills = skillsArray.map(skill => skill.trim());
+        };
+        // Validating Skills Array
+        if(data.skills){
+            if(!Array.isArray(data.skills) || data.skills.some(skill => Array.isArray(skill))){
+                throw new Error("Smart Move To Send Nested Array, But I Caught You.");
+            }
+            data.skills = data.skills.map(skill => skill.trim()).filter(skill => skill.length > 0);
+        };
 
         // Updating Our Data
         const user = await User.findByIdAndUpdate(userID, data, {
