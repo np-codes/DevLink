@@ -1,5 +1,8 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const env = require("dotenv").config();
 
 const userSchema = new mongoose.Schema({
         firstName: {
@@ -29,30 +32,6 @@ const userSchema = new mongoose.Schema({
                     throw new Error("{VALUE} Is Invalid Email.")
                 }
             },
-
-            /*  Validating Email METHOD 1
-            validate: {
-                validator : validator.isEmail,
-                message : "{VALUE} Is Invalid Email."
-            } 
-            */
-            /* Validating Email METHOD 2
-            validate : {
-                validator: function(v) {
-                    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                    return emailRegex.test(v);
-                },
-                message: props => `${props.value} Is Not A Valid Email.`
-            }, */
-
-            /* Validating Email METHOD 3
-            validate(value){
-                const isvalid = (email) => emailRegex.test(email);
-                if(!isvalid(value.trim())){
-                    throw new Error("The Email Is Invalid");
-                } 
-            }
-             */
         },
         password: {
             type: String,
@@ -64,12 +43,6 @@ const userSchema = new mongoose.Schema({
                     throw new Error("{VALUE} Is Not A Strong Password");
                 }
             },
-            /* validate(value) {
-                const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
-                if(!passwordRegex.test(value.trim())){
-                    throw new Error("The Password Is Invalid.\nThe Password Must Have:\n- At least one lowercase letter\n- At least one uppercase letter\n- At least one digit \n- At least one special character");
-                } 
-            } */
         },
         age: {
             type: Number,
@@ -116,5 +89,23 @@ const userSchema = new mongoose.Schema({
         timestamps: true,
     }
 );
+// Helper Functions / Instance Methods 
+userSchema.methods.getJWT = async function () {
+    const user = this;
+    const token = jwt.sign({_id: user._id}, process.env.JWT_PRIVATE_KEY,{
+        expiresIn: "7d"
+    });
+    return token;
+};
+
+userSchema.methods.validatePassword = async function (inputPasswordByUser) {
+    const user = this;
+    const passwordHash = user.password;
+    const isPasswordValid = await bcrypt.compare(inputPasswordByUser, passwordHash);
+    if(!isPasswordValid){
+        throw new Error("Invalid Credentials - Dont Give Up, Try Another Again.");
+    }
+    return isPasswordValid;
+}
 
 module.exports = mongoose.model("User", userSchema);
