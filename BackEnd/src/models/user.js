@@ -106,6 +106,7 @@ userSchema.methods.validatePassword = async function (inputPasswordByUser) {
         throw new Error("Invalid Credentials - Dont Give Up, Try Another Again.");
     }
     return isPasswordValid;
-}
+};
+
 
 module.exports = mongoose.model("User", userSchema);
