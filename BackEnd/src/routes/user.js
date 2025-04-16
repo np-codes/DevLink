@@ -5,36 +5,34 @@ const User = require("../models/user");
 const express = require("express");
 const router = express.Router();
 
-// API TO Get All The Pending Requests For User
+const USER_DATA = "firstName lastName photoUrl about skills age gender";
+
+// API TO Get The Pending Request From Users
 router.get("/user/requests/received", userAuth, async(req,res) => {
     try {
         const loggedInId = req.user._id;
         const pendingRequests = await ConnectionRequest.find({
             toUserId : loggedInId,
             status : "interested"
-        }).populate("fromUserId", "firstName lastName photoUrl about");
+        }).populate("fromUserId", USER_DATA);
         if (pendingRequests.length === 0) {
-            return res.send("There Are No Pending Requests.")
+            return res.json({
+                message : "There Are No Pending Requests."
+            })
         }
         const filteredData = pendingRequests.map((request) => {
-            const user = request.fromUserId;
-            return {
-                firstName : user.firstName,
-                lastName : user.lastName,
-                photoUrl : user.photoUrl,
-                about : user.about
-            }
+            return request?.fromUserId; 
         })
-        res.send({
+        res.json({
             message: "The Following Is The List Of Pending Requests :",
             data : filteredData 
         })
     } catch (err) {
-        res.status(400).send("Error Occured: " + err.message)
+        res.status(400).json({ error: "Error Occurred", message: err.message });
     }
 })
 
-// API TO Get All The Connected Requests For User
+// API TO Get All The Connected Users
 router.get("/user/connections", userAuth, async(req,res) => {
     try {
         const loggedInId = req.user._id;
@@ -43,28 +41,65 @@ router.get("/user/connections", userAuth, async(req,res) => {
                 { fromUserId : loggedInId, status : "accepted" },
                 { toUserId : loggedInId, status : "accepted" }
             ],
-        }).populate("fromUserId","firstName lastName").populate("toUserId","firstName lastName");
+        }).populate("fromUserId",USER_DATA).populate("toUserId",USER_DATA);
 
         if (connectedRequests.length === 0) {
-            return res.send("There Are No Connected Requests.")
+            return res.json({
+                message : "There Are No Connected Requests."
+            });
         }
 
         const filteredData = connectedRequests.map((request) => {
             const user = request.fromUserId._id.equals(loggedInId)? request.toUserId : request.fromUserId;
-            return {
-                firstName : user.firstName,
-                lastName : user.lastName,
-            }
+            return user
         });
 
-        res.send({
+        res.json({
             message: "The Following Is The List Of Connected Requests :",
             data : filteredData
         });
 
     } catch (err) {
-        res.status(400).send("Error Occured: " + err.message)
+        res.status(400).json({ error: "Error Occurred", message: err.message });
     }
 })
+
+// Feed API To Get Data Of Random Users
+router.get("/user/feed", userAuth, async(req,res) => {
+    try{
+        const loggedInId = req.user._id;
+        const page = parseInt(req?.query?.page) || 1;
+        let limit = parseInt(req?.query?.limit) || 10;
+        limit = limit > 10 ? 10 : limit;
+        const skip = (page - 1) * limit;
+
+        const allConnectionRequests = await ConnectionRequest.find({
+            $or : [
+                { fromUserId : loggedInId },
+                { toUserId : loggedInId }
+            ]
+        }).select("fromUserId toUserId")
+        const hideUsersFromFeed = new Set();
+        allConnectionRequests.forEach((request) => {
+            hideUsersFromFeed.add(request.fromUserId.toString());
+            hideUsersFromFeed.add(request.toUserId.toString());
+        })
+
+        const randomUsersInFeed = await User.find({ 
+            $and : [
+                { _id : { $nin: Array.from(hideUsersFromFeed)} },
+                { _id : { $ne : loggedInId } }
+            ]
+        })
+            .skip(skip)
+            .limit(limit)
+            .select(USER_DATA)
+        res.json({
+            data : randomUsersInFeed 
+        })
+    } catch(err) {
+        res.status(400).json({ error: "Error Occurred", message: err.message });
+    }
+}) 
 
 module.exports = router
