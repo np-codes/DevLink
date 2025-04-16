@@ -13,9 +13,10 @@ app.use(cookieParser());
 
 const authRouter = require("./routes/auth");
 const profileRouter = require("./routes/profile");
-const requestRouter = require("./routes/request"); 
+const requestRouter = require("./routes/request");
+const userRouter = require("./routes/user"); 
 
-app.use("/", authRouter, profileRouter, requestRouter);
+app.use("/", authRouter, profileRouter, requestRouter, userRouter);
 
 connectDB().then(() => {
     console.log("Connection To Cluster Established Successfully..");
