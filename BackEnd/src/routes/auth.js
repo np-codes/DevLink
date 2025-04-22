@@ -52,7 +52,8 @@ router.post("/login", async(req,res) => {
         // Token In Our Cookie
         res.cookie("token",token, { maxAge : 7 * 24 * 60 * 60 * 1000 });
         res.json({
-            message: `Login Successful.. Welcome Back!! ${user.firstName}.`
+            message: `Login Successful.. Welcome Back!! ${user.firstName}.`,
+            data: user
         });
     } catch (err) {
         res.status(400).json({ error: "Error Occurred", message: err.message });

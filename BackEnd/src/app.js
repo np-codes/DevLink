@@ -4,10 +4,17 @@ const connectDB = require('./config/database');
 // Imported Inbuilt Libraries
 const express = require("express");
 const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const app = express();
 
 // Universal Path
+app.use(
+    cors({
+        origin :  "http://localhost:5173",
+        credentials : true
+    })
+);
 app.use(express.json());
 app.use(cookieParser());
 
