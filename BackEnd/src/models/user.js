@@ -103,7 +103,7 @@ userSchema.methods.validatePassword = async function (inputPasswordByUser) {
     const passwordHash = user.password;
     const isPasswordValid = await bcrypt.compare(inputPasswordByUser, passwordHash);
     if(!isPasswordValid){
-        throw new Error("Invalid Credentials - Dont Give Up, Try Another Again.");
+        throw new Error("-- Invalid Credentials --");
     }
     return isPasswordValid;
 };

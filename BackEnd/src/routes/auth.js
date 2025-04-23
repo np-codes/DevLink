@@ -43,7 +43,7 @@ router.post("/login", async(req,res) => {
 
         const user = await User.findOne({emailId : emailId });
         if (!user) {
-            throw new Error("Invalid Credentials - Dont Give Up, Try Again.");
+            throw new Error("-- Invalid Credentials --");
         }
 
         await user.validatePassword(password);
