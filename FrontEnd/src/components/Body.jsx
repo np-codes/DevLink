@@ -14,12 +14,11 @@ const Body = () => {
 
   const fetchUser = async() => {
     try{
-      if (!userInRedux) {return navigate("/login");}
       const res = await axios.get(BASE_URL + "/profile/view", {
         withCredentials : true
       });
-      const data = res.data
-      dispatch(addUser(data.data))
+      const data = res?.data?.data
+      dispatch(addUser(data))
     } catch (err) {
       if (err.status === 401) {
         navigate("/login")
@@ -28,11 +27,13 @@ const Body = () => {
     }
   }
   useEffect(() => {
+    if(!userInRedux){
       fetchUser();
+    }
   },[]);
 
   return (
-    <div className="flex flex-col h-screen overflow-auto">
+    <div className="flex flex-col h-screen overflow-auto ">
       <NavBar />
 
       <main className="flex-grow overflow-auto">

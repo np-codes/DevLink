@@ -28,18 +28,17 @@ const Login = () => {
         { emailId, password },
         { withCredentials : true }
       )
-      const data = res.data;
-      dispatch(addUser(data.data))
+      const data = res?.data?.data;
+      dispatch(addUser(data))
       return navigate("/feed");
     } catch (err) {
       setError(err?.response?.data?.message || "Something Went Wrong.");
-      console.log(err?.response?.data?.message || "Something Went Wrong.");
       throw new Error( "Error Occured : ", err?.response?.data?.message || "Something Went Wrong.");
     }
   }
 
   return (
-    <div className=" flex justify-center items-center h-[calc(100vh-8rem)] overflow-hidden">
+    <div className=" flex justify-center items-center h-[calc(100vh-8.3rem)] overflow-hidden">
       <div className=" flex items-center justify-center h-screen ">
         <div className={cardcss}>
           <h2 className="p-2 my-3 text-gray-300 text-5xl font-bold text-center">
