@@ -5,12 +5,16 @@ import Footer from './Footer'
 
 const Body = () => {
   return (
-    <div>
-        <NavBar/>
-        <Outlet/>
-        <Footer/>
+    <div className="flex flex-col h-screen overflow-auto">
+      <NavBar />
+
+      <main className="flex-grow overflow-auto">
+        <Outlet />
+      </main>
+
+      <Footer />
     </div>
-  )
+  );
 }
 
 export default Body
