@@ -1,28 +1,14 @@
-import React, { useState } from 'react'
-import axios from "axios"
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { BASE_URL } from '../utils/constants';
-import { removeUser } from '../utils/userSlice';
+import { Logout_API } from '../utils/apis';
 
 const NavBar = () => {
   const user = useSelector((store) => store.user )
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const handleLogout = async() => {
-    try {
-      await axios.post(
-        BASE_URL + "/logout",
-        {},
-        {
-          withCredentials: true,
-        }
-      );
-      dispatch(removeUser());
-      navigate("/login");
-    } catch (err) {
-      throw new Error("Something Went Wrong : " + err.message);
-    }
+    Logout_API({dispatch, navigate })
     
   }
   return (

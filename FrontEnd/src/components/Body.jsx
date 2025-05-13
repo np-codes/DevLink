@@ -2,10 +2,8 @@ import React, { useEffect } from 'react'
 import NavBar from './NavBar'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Footer from './Footer'
-import axios from 'axios'
-import { BASE_URL } from '../utils/constants'
 import { useDispatch, useSelector } from 'react-redux'
-import { addUser } from '../utils/userSlice'
+import { Fetch_User_Profile_API } from '../utils/apis'
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -13,21 +11,11 @@ const Body = () => {
   const userInRedux = useSelector(store => store.user);
 
   const fetchUser = async() => {
-    try{
-      const res = await axios.get(BASE_URL + "/profile/view", {
-        withCredentials : true
-      });
-      const data = res?.data?.data
-      dispatch(addUser(data))
-    } catch (err) {
-      if (err.status === 401) {
-        navigate("/login")
-      }
-      throw new Error("Something Went Wrong : " + err.message);
-    }
+    Fetch_User_Profile_API({dispatch, navigate})
   }
   useEffect(() => {
-    if(!userInRedux){
+    const token = localStorage.getItem("token")
+    if(token && !userInRedux){
       fetchUser();
     }
   },[]);

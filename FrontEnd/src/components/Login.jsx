@@ -1,10 +1,8 @@
-import axios from 'axios';
 import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addUser } from '../utils/userSlice';
 import { useNavigate } from 'react-router-dom';
-import { BASE_URL } from '../utils/constants';
+import { Login_API } from '../utils/apis';
 
 const Login = () => {
   const inputcss =
@@ -18,23 +16,13 @@ const Login = () => {
 
   const [ emailId, setEmailId ] = useState("Zeel@gmail.com");
   const [ password, setPassword ] = useState("Zeel@123");
-  const [ error, setError ] = useState("")
+  const [ errorMessage, setErrorMessage ] = useState("")
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleLogin = async() => {
-    try{
-      const res = await axios.post(BASE_URL + "/login", 
-        { emailId, password },
-        { withCredentials : true }
-      )
-      const data = res?.data?.data;
-      dispatch(addUser(data))
-      return navigate("/feed");
-    } catch (err) {
-      setError(err?.response?.data?.message || "Something Went Wrong.");
-      throw new Error( "Error Occured : ", err?.response?.data?.message || "Something Went Wrong.");
-    }
+    const loginInfo = { emailId, password };
+    Login_API({loginInfo , dispatch , navigate, setErrorMessage})
   }
 
   return (
@@ -59,7 +47,7 @@ const Login = () => {
               placeholder="Password"
               onChange={(e) => setPassword(e.target.value)}
             />
-            <p className='text-red-500 mt-1'>{error}</p>
+            <p className='text-red-500 mt-1'>{errorMessage}</p>
             <button className={buttoncss} onClick={handleLogin}>Login</button>
             <h2 className="mb-8 p-1 text-white">
               Dont Have An Acoount? Create New Account
