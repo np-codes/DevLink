@@ -31,8 +31,20 @@ router.patch("/profile/edit", userAuth, async(req,res) => {
             if (!Array.isArray(data.skills) || data.skills.some(skill => Array.isArray(skill))) {
                 throw new Error("Smart Move To Send Nested Array, But I Caught You.");
             }
-            data.skills = data.skills.map(skill => skill.trim()).filter(skill => skill.length > 0);
+            data.skills = data.skills
+                .map(skill => skill
+                        .trim()
+                        .split(' ')
+                        .map(word => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+                        .join(' ')
+                    ).filter(skill => skill.length > 0);
         };
+        if(data.age) {
+            const numericAge = Number(data.age);
+            if (isNaN(numericAge)) {
+                throw new Error("Please Enter A Valid Number");
+            }
+        }
 
         const user = await User.findByIdAndUpdate(userID, data, {
             runValidators: true,

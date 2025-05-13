@@ -47,7 +47,7 @@ const userSchema = new mongoose.Schema({
         age: {
             type: Number,
             min: [18, 'You Must Be At Least 18. Kiddo!!'],
-            max: [150, '{VALUE} !! You Are Not A Human Anymore!!']
+            max: [150, '{VALUE} !! You Are Not A Human Anymore!!'],
         },
         gender: {
             type: String,
@@ -56,7 +56,7 @@ const userSchema = new mongoose.Schema({
             // Validating Limited Options
             enum: {
                 values: ["Male", "Female", "Others"],
-                message: `{VALUE} Is Invalid.`
+                message: `Enter Valid Input.[Male, Female, Others].`
             }
         },
         photoUrl: {
