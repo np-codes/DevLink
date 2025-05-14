@@ -3,7 +3,8 @@ import NavBar from './NavBar'
 import { Outlet, useNavigate } from 'react-router-dom'
 import Footer from './Footer'
 import { useDispatch, useSelector } from 'react-redux'
-import { Fetch_User_Profile_API } from '../utils/apis'
+import { Fetch_User_Profile_API } from '../utils/profileAPIS'
+import { Toaster } from 'react-hot-toast'
 
 const Body = () => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const Body = () => {
 
   return (
     <div className="flex flex-col h-screen overflow-auto ">
+      <Toaster position='top-center' reverseOrder={false} />
       <NavBar />
 
       <main className="flex-grow overflow-auto">
