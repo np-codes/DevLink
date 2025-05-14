@@ -6,6 +6,7 @@ import { Provider } from "react-redux";
 import { appStore, persistor } from "./utils/appStore";
 import Feed from "./components/Feed";
 import { PersistGate } from "redux-persist/integration/react";
+import Connections from "./components/Connections";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
                 <Route path="/feed" element={<Feed />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/profile" element={<Profile />} />
+                <Route path="/connections" element={<Connections />} />
               </Route>
             </Routes>
           </BrowserRouter>

@@ -4,6 +4,7 @@ import storage from 'redux-persist/lib/storage';
 import userReducer from "./userSlice";
 import feedReducer from "./feedSlice";
 import persistStore from "redux-persist/es/persistStore";
+import connectionReducer from "./connectionSlice"
 
 const persistConfig = {
     key: "root",
@@ -12,7 +13,8 @@ const persistConfig = {
 }
 const rootReducer = combineReducers({
     user: userReducer,
-    feed: feedReducer
+    feed: feedReducer,
+    connections: connectionReducer
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

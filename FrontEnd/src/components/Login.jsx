@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { Login_API } from '../utils/apis';
+import { Login_API } from '../utils/authAPIS';
 
 const Login = () => {
   const inputcss =
