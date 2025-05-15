@@ -13,12 +13,11 @@ const NavBar = () => {
     if (pathname.startsWith("/feed")) return "Feed";
     if (pathname.startsWith("/profile")) return "Profile";
     if (pathname.startsWith("/settings")) return "Settings";
-    if (pathname.startsWith("/connections")) return "Connections";
+    if (pathname.startsWith("/mylinks")) return "MyLinks";
     return;
   }
   const handleLogout = async() => {
     Logout_API({dispatch})
-    
   }
   const title = getPageTitle(location.pathname)
   return (
@@ -43,16 +42,17 @@ const NavBar = () => {
                 <div className="flex items-center gap-x-3 px-3 ">
                   <li>
                     <Link
-                      to="/connections"
+                      to="/mylinks"
                       className="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-green-400 hover:to-purple-500 transition-all duration-200"
                       onClick={() => setDropDownOpen(false)}
                     >
-                      Connections
+                      MyLinks
                     </Link>
                   </li>
                   <li>
                     <Link
                       to="/login"
+                      className="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-green-400 hover:to-purple-500 transition-all duration-200"
                       onClick={() => {
                         setDropDownOpen(false);
                         handleLogout();
@@ -62,7 +62,11 @@ const NavBar = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link to="/profile" onClick={() => setDropDownOpen(false)}>
+                    <Link
+                      to="/profile"
+                      className="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-green-400 hover:to-purple-500 transition-all duration-200"
+                      onClick={() => setDropDownOpen(false)}
+                    >
                       Profile
                     </Link>
                   </li>

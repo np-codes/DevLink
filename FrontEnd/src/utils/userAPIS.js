@@ -1,7 +1,7 @@
 import { BASE_URL } from "../utils/constants";
 import axios from "axios";
 import { addFeed } from "./feedSlice";
-import { addConnections } from "./connectionSlice";
+import { addConnections } from "./linkSlice";
 
 export const User_Feed_API = async ({dispatch}) => {
     try{
@@ -21,7 +21,6 @@ export const User_Connections_API = async({dispatch}) => {
         withCredentials : true
       });
 			const data = res.data?.data;
-			console.log(data)
       dispatch(addConnections(data))
     }
     catch (err) {
