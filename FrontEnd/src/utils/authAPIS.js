@@ -1,8 +1,10 @@
 import { BASE_URL } from "./constants";
-import { addUser, removeUser, updateUser } from "./userSlice";
+import { addUser, removeUser} from "./userSlice";
 import axios from "axios";
 import { persistor } from './appStore';
 import toast from "react-hot-toast";
+import { resetAllLinkLists } from "./linkSlice";
+import { removeFeed } from "./feedSlice";
 
 export const Login_API = async({loginInfo, dispatch, navigate, setErrorMessage}) => {
 	try{
@@ -31,6 +33,9 @@ export const Logout_API = async ({dispatch}) => {
         }
       );
       persistor.purge();
+      dispatch(resetAllLinkLists());
+      dispatch(removeUser());
+      dispatch(removeFeed());
 		toast.success(res.data.message)
     } catch (err) {
       throw new Error("Something Went Wrong : " + err.message);

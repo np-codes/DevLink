@@ -20,8 +20,12 @@ router.get("/user/requests/received", userAuth, async(req,res) => {
                 message : "There Are No Pending Requests."
             })
         }
+        
         const filteredData = pendingRequests.map((request) => {
-            return request?.fromUserId; 
+            return {
+                linkId: request._id,
+                user: request.fromUserId
+            }
         })
         res.json({
             message: "The Following Is The List Of Pending Requests :",
@@ -51,9 +55,11 @@ router.get("/user/connections", userAuth, async(req,res) => {
 
         const filteredData = connectedRequests.map((request) => {
             const user = request.fromUserId._id.equals(loggedInId)? request.toUserId : request.fromUserId;
-            return user
+            return {
+                linkId: request._id, 
+                user: user
+            }
         });
-
         res.json({
             message: "The Following Is The List Of Connected Requests :",
             data : filteredData
