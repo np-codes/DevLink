@@ -1,7 +1,7 @@
-import { BASE_URL } from "../utils/constants";
+import { BASE_URL } from "../utils/constants.js";
 import axios from "axios";
-import { addFeed } from "./feedSlice";
-import { addConnections, addRequests } from "./linkSlice.js";
+import { addFeed } from "../utils/feedSlice.js";
+import { addConnections, addRequests } from "../utils/linkSlice.js";
 
 export const User_Feed_API = async ({dispatch}) => {
     try{

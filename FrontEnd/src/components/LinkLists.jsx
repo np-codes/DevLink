@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import FriendCard from './FriendCard';
-import { Action_On_Received_Request_API } from '../utils/linkAPIS';
+import {Action_On_Received_Request_API} from '../apis/linkAPIS'
 import { popRequestFromList, pushNewConnectionToList } from '../utils/linkSlice';
 
 const LinkLists = ({section}) => {

@@ -1,5 +1,5 @@
-import { BASE_URL } from "./constants";
-import { addUser, updateUser } from "./userSlice";
+import { BASE_URL } from "../utils/constants";
+import { addUser, updateUser } from "../utils/userSlice";
 import axios from "axios";
 import toast from "react-hot-toast";
 

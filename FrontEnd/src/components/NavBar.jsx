@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
-import { Logout_API } from '../utils/authAPIS';
+import { Logout_API } from '../APIS/authAPIS';
 
 const NavBar = () => {
   const user = useSelector((store) => store.user )
@@ -51,7 +51,7 @@ const NavBar = () => {
                   </li>
                   <li>
                     <Link
-                      to="/login"
+                      to="/signin"
                       className="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-green-400 hover:to-purple-500 transition-all duration-200"
                       onClick={() => {
                         setDropDownOpen(false);
@@ -68,6 +68,15 @@ const NavBar = () => {
                       onClick={() => setDropDownOpen(false)}
                     >
                       Profile
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/feed"
+                      className="hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-green-400 hover:to-purple-500 transition-all duration-200"
+                      onClick={() => setDropDownOpen(false)}
+                    >
+                      Feed
                     </Link>
                   </li>
                 </div>

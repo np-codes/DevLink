@@ -33,8 +33,8 @@ router.post("/signup", async(req,res) => {
     }    
 });
 
-// Login API
-router.post("/login", async(req,res) => {
+// Sigin API
+router.post("/signin", async(req,res) => {
     try {
         const { emailId, password } = req.body;
         if (!validator.isEmail(emailId)) {

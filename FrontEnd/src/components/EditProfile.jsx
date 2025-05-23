@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { Edit_Profile_API } from "../utils/profileAPIS";
+import { Edit_Profile_API } from '../apis/profileAPIS'
 
 const EditProfile = ({ user, flipBack }) => {
   const { firstName, lastName, photoUrl, age, gender, about, skills } = user;

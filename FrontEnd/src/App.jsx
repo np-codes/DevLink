@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Body from "./components/Body";
-import Login from "./components/Login";
 import Profile from "./components/Profile";
 import { Provider } from "react-redux";
 import { appStore, persistor } from "./utils/appStore";
 import Feed from "./components/Feed";
 import { PersistGate } from "redux-persist/integration/react";
 import MyLinks from "./components/MyLinks";
+import AuthPage from "./components/AuthPage";
 
 function App() {
 
@@ -18,7 +18,8 @@ function App() {
             <Routes>
               <Route path="/" element={<Body />}>
                 <Route path="/feed" element={<Feed />} />
-                <Route path="/login" element={<Login />} />
+                <Route path="/signin" element={<AuthPage section={"Sign In"} />} />
+                <Route  path="/signup" element={<AuthPage section={"Sign Up"} />}/>
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/mylinks" element={<MyLinks />} />
               </Route>

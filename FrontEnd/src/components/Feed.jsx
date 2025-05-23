@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import UserCard from './UserCard';
-import { User_Feed_API } from '../utils/userAPIS';
+import { User_Feed_API } from '../apis/userAPIS';
 
 const Feed = () => {
   const dispatch = useDispatch();

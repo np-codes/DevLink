@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import LinkLists from './LinkLists';
-import { User_Connections_API, User_Requests_API } from "../utils/userAPIS";
 import { useDispatch } from "react-redux";
+import { User_Connections_API, User_Requests_API } from "../apis/userAPIS";
 
 const MyLinks = () => {
   const dispatch = useDispatch()
