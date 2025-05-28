@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import FriendCard from './FriendCard';
 import {Action_On_Received_Request_API} from '../apis/linkAPIS'
-import { popRequestFromList, pushNewConnectionToList } from '../utils/linkSlice';
 
 const LinkLists = ({section}) => {
   const [flipped, setFlipped] = useState(false)
@@ -26,15 +25,11 @@ const LinkLists = ({section}) => {
     );
 
     const handleRequests = (status, friend) => {
-      dispatch(popRequestFromList(friend?.linkId));
-      if(status === "accepted"){
-        dispatch(pushNewConnectionToList(friend))
-      }
-      Action_On_Received_Request_API(status, friend?.linkId);
+      Action_On_Received_Request_API(status, friend , dispatch);
     };
   
   return (
-    <div className="h-full w-full flex flex-col items-center text-center bg-white rounded-xl transition-all duration-200 hover:shadow-lg hover: shadow-black p-6 border border-gray-200">
+    <div className="flex flex-col h-full min-h-0 w-full items-center text-center bg-white rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-black p-6 border border-gray-200 overflow-hidden">
       <div className='"relative w-full h-full [perspective:1000px]"'>
         <div
           className={`relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] ${
@@ -42,7 +37,7 @@ const LinkLists = ({section}) => {
           }`}
         >
           {/* front */}
-          <div className="absolute h-full inset-0 backface-hidden overflow-hidden flex flex-col">
+          <div className="absolute h-full inset-0 backface-hidden overflow-hidden flex flex-col min-h-0">
             <div className="py-6 flex-shrink-0">
               <div className="text-2xl lg:text-3xl font-bold px-6 py-3 rounded-lg shadow bg-gray-100 border-2 text-gray-800">
                 {section === "connections"
@@ -50,8 +45,11 @@ const LinkLists = ({section}) => {
                   : "Friend Requests"}
               </div>
             </div>
-            <div className="flex-1 overflow-y-auto w-full flex justify-center no-scrollbar touch-pan-y">
-              <ul className="w-full max-w-3xl space-y-5 p-6 ">
+            <div
+              tabIndex={0}
+              className="flex-1 min-h-0 w-full flex justify-center overflow-y-auto no-scrollbar touch-pan-y"
+            >
+              <ul className="w-full max-w-3xl space-y-5 p-6">
                 {links.map((friend) => {
                   const { _id, firstName, lastName, photoUrl } = friend.user;
                   return (
@@ -115,7 +113,7 @@ const LinkLists = ({section}) => {
 
           {/* BACK */}
           <div className="absolute inset-0 backface-hidden rotate-y-180 flex items-center justify-center">
-            <div className="w-full h-full bg-amber-100 flex items-center justify-center">
+            <div className="w-full h-full flex items-center justify-center">
               {friendCard && (
                 <FriendCard
                   friend={friendCard}

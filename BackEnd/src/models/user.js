@@ -40,7 +40,7 @@ const userSchema = new mongoose.Schema({
             minlength:[8,'Password Length Should Be At Least 8'],
             validate(value) {
                 if(!validator.isStrongPassword(value)){
-                    throw new Error("{VALUE} Is Not A Strong Password");
+                    throw new Error("This Is Not A Strong Password");
                 }
             },
         },
@@ -65,22 +65,21 @@ const userSchema = new mongoose.Schema({
             trim: true,
             validate(value){
                 if(!validator.isURL(value)){
-                    throw new Error("{VALUE} Is Invalid URL.")
+                    throw new Error("The URL Is Invalid.")
                 }
             },
         },
         about: {
             type: String,
-            default: "This Is Default Value",
             trim: true,
-            maxlength:[200,"Just Write An Intro. Not An Essay. Make It Short."]
+            maxlength:[350,"Just Write An Intro. Not An Essay. Make It Short."]
         },
         skills: {
             type: [String],
             // Limiting Number Of Skills User Can Add
             validate(value) {
-                if(value.length > 10){
-                    throw new Error("We Know You Are Highly Skilled. But We Can Only Include 10 Best Of Your Skills.");
+                if(value.length > 5){
+                    throw new Error("Include Only 5 Best Of Your Skills.");
                 }  
             },
         }

@@ -25,8 +25,13 @@ router.post("/signup", async(req,res) => {
             password : passwordHash,
         });
         await user.save();
+        // Creating JWT In User Schema
+        const token = await user.getJWT();
+        // Token In Our Cookie
+        res.cookie("token",token, { maxAge : 7 * 24 * 60 * 60 * 1000 });
         res.json({
-            message: `Hii ${ firstName }, Your Account Has Been Created Successfully.`
+            message: `Hii ${ firstName }, Sign Up Successfully.`,
+            data: user
         });
     } catch (err) {
         res.status(400).json({ error: "Error Occurred", message: err.message });

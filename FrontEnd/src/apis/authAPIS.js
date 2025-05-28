@@ -42,14 +42,16 @@ export const Logout_API = async ({dispatch}) => {
     }
 }
 
-export const Sign_Up_API = async({signupInfo, navigate, setErrorMessage}) => {
+export const Sign_Up_API = async({signupInfo, dispatch, navigate, setErrorMessage}) => {
   try{
     const res = await axios.post(BASE_URL + "/signup", 
       signupInfo , 
       { withCredentials : true }
     )
+    const data = res?.data?.data;
+    dispatch(addUser(data));
     toast.success(res.data.message);
-    return navigate("/sigin");
+    return navigate("/profile");
   } catch (err) {
     setErrorMessage(err?.response?.data?.message || "Something Went Wrong.");
     throw new Error( "Error Occured : ", err?.response?.data?.message || "Something Went Wrong.");

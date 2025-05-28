@@ -10,6 +10,7 @@ export const User_Feed_API = async ({dispatch}) => {
       });
       const data = res.data?.data;
       dispatch(addFeed(data));
+      return data;
    	} catch (err) {
       throw new Error("Error Occured : ", err?.response?.data?.message || "Something Went Wrong.");
    	}
