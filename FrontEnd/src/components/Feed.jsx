@@ -32,7 +32,7 @@ const Feed = () => {
   if (!feedList) return;
   if (feedList.length <= 0) {
     return (
-      <div className="flex justify-center items-center h-[calc(100vh-8.3rem)] bg-gradient-to-br from-blue-400 to-purple-300 p-4">
+      <div className="flex justify-center items-center h-[calc(100vh-7.78rem)] bg-gradient-to-br from-blue-400 to-purple-300 p-4">
         <h1 className="text-xl sm:text-2xl md:text-3xl font-semibold text-white text-center bg-black/40 px-4 sm:px-6 py-3 sm:py-4 rounded-lg shadow-lg">
           No Users Available
         </h1>
@@ -42,7 +42,7 @@ const Feed = () => {
 
   return (
     feedList && (
-      <div className="flex justify-center items-center h-[calc(100vh-8.3rem)] bg-gradient-to-br from-blue-400 to-purple-300 p-4">
+      <div className="flex justify-center items-center h-[calc(100vh-7.78rem)] bg-gradient-to-br from-blue-400 to-purple-300 p-4">
         <UserCard
           user={feedList[0]}
           isFromProfile={false}

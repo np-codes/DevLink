@@ -29,7 +29,7 @@ const LinkLists = ({section}) => {
     };
   
   return (
-    <div className="flex flex-col h-full min-h-0 w-full items-center text-center bg-white rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-black p-6 border border-gray-200 overflow-hidden">
+    <div className="flex flex-col h-full min-h-0 w-full items-center text-center bg-white rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-black p-1 sm:p-3 md:p-6 border border-gray-200 overflow-hidden">
       <div className='"relative w-full h-full [perspective:1000px]"'>
         <div
           className={`relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] ${
@@ -38,8 +38,8 @@ const LinkLists = ({section}) => {
         >
           {/* front */}
           <div className="absolute h-full inset-0 backface-hidden overflow-hidden flex flex-col min-h-0">
-            <div className="py-6 flex-shrink-0">
-              <div className="text-2xl lg:text-3xl font-bold px-6 py-3 rounded-lg shadow bg-gray-100 border-2 text-gray-800">
+            <div className="py-3 md:py-6 flex-shrink-0">
+              <div className="text-base sm:text-xl md:text-2xl lg:text-3xl font-bold px-1 sm:px-4 py-2 rounded-lg shadow bg-gray-100 border-2 text-gray-800 max-h-[10vh]">
                 {section === "connections"
                   ? "Your Connections"
                   : "Friend Requests"}
@@ -49,25 +49,25 @@ const LinkLists = ({section}) => {
               tabIndex={0}
               className="flex-1 min-h-0 w-full flex justify-center overflow-y-auto no-scrollbar touch-pan-y"
             >
-              <ul className="w-full max-w-3xl space-y-5 p-6">
+              <ul className="w-full max-w-3xl space-y-2 sm:space-y-3 md:space-y-4 p-2 md:p-4 sm:p-3">
                 {links.map((friend) => {
                   const { _id, firstName, lastName, photoUrl } = friend.user;
                   return (
                     <li
                       key={_id}
-                      className="flex items-center gap-4 p-5 bg-gray-100 border-2 border-blue-200 rounded-xl hover:shadow-lg hover:shadow-black hover:scale-102 transition duration-300"
+                      className="flex flex-col md:flex-row items-center gap-1 md:gap-4 p-3 md:p-4 bg-gray-100 border-2 border-blue-200 rounded-xl hover:shadow-lg hover:shadow-black hover:scale-102 transition duration-300 text-center md:text-left"
                     >
                       <img
-                        className="w-14 h-14 rounded-full border-2 border-purple-300 shadow"
+                        className="w-12 h-12 sm:w-14 sm:h-14 rounded-full border-2 border-purple-300 shadow"
                         src={photoUrl}
                         alt={`${firstName} ${lastName}`}
                       />
-                      <div className="flex-1">
-                        <div className="text-lg font-semibold text-gray-800">
-                          {firstName} {lastName}
+                      <div className="flex-1 md:flex md:items-center">
+                        <div className="text-md md:text-lg mb-1 font-semibold text-gray-800">
+                          {`${firstName} ${lastName}`}
                         </div>
                         {section === "requests" ? (
-                          <div className="w-full flex flex-wrap justify-center items-center gap-4 mt-3 px-5 font-bold">
+                          <div className="w-full flex flex-wrap justify-center items-center gap-2 sm:gap-4 px-2 sm:px-5 font-bold text-sm sm:text-base">
                             <button
                               className="badge badge-outline py-2 px-4 transition-all duration-200 hover:bg-blue-400 hover:text-white hover:scale-105"
                               onClick={() => handleRequests("accepted", friend)}
@@ -91,7 +91,7 @@ const LinkLists = ({section}) => {
                             </button>
                           </div>
                         ) : (
-                          <div className="w-full flex flex-wrap justify-center items-center gap-4 mt-3 px-5 font-bold">
+                          <div className="w-full flex flex-wrap justify-center items-center gap-4 px-5 font-bold">
                             <button
                               className="badge badge-outline py-2 px-4 transition-all duration-200 hover:bg-green-400 hover:text-white hover:scale-105"
                               onClick={() => {
