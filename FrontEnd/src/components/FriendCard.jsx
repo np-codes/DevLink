@@ -32,11 +32,11 @@ const FriendCard = ({friend, section, setFlipped, handleRequests}) => {
           )}
         </div>
 
-        <div className="mt-1 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 text-sm sm:text-lg font-medium items-center w-full">
+        <div className="mt-1 grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 text-sm md:text-lg font-medium items-center w-full">
           {section === "requests" ? (
             <>
               <button
-                className="w-full px-4 py-1 sm:py-2 rounded-full border-2 border-blue-400 text-blue-600 hover:bg-blue-400 hover:text-white transition duration-200"
+                className="w-full px-4 py-1 sm:py-1.5 md:py-2 rounded-full border-2 border-blue-400 text-blue-600 hover:bg-blue-400 hover:text-white transition duration-200"
                 onClick={() => {
                   setFlipped(false);
                   handleRequests("accepted", friend);
@@ -46,14 +46,14 @@ const FriendCard = ({friend, section, setFlipped, handleRequests}) => {
               </button>
 
               <button
-                className="w-full px-4 py-1 sm:py-2 rounded-full border-2 border-gray-400 text-gray-600 hover:bg-gray-400 hover:text-white transition duration-200"
+                className="w-full px-4 py-1 sm:py-1.5 md:py-2 rounded-full border-2 border-gray-400 text-gray-600 hover:bg-gray-400 hover:text-white transition duration-200"
                 onClick={() => setFlipped(false)}
               >
                 CLOSE
               </button>
 
               <button
-                className="w-full px-4 py-1 sm:py-2 rounded-full border-2 border-red-400 text-red-600 hover:bg-red-400 hover:text-white transition duration-200"
+                className="w-full px-4 py-1 sm:py-1.5 md:py-2 rounded-full border-2 border-red-400 text-red-600 hover:bg-red-400 hover:text-white transition duration-200"
                 onClick={() => {
                   setFlipped(false);
                   handleRequests("rejected", friend);
@@ -66,7 +66,7 @@ const FriendCard = ({friend, section, setFlipped, handleRequests}) => {
             <>
               <div className="hidden sm:block" />
               <button
-                className="w-full px-4 py-1 sm:py-2 rounded-full border-2 border-gray-400 text-gray-600 hover:bg-gray-400 hover:text-white transition duration-200"
+                className="w-full px-4 py-1 sm:py-1.5 md:py-2 rounded-full border-2 border-gray-400 text-gray-600 hover:bg-gray-400 hover:text-white transition duration-200"
                 onClick={() => setFlipped(false)}
               >
                 CLOSE

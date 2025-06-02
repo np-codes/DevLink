@@ -22,7 +22,7 @@ const UserCard = ({ user, isFromProfile }) => {
             flipped ? "rotate-y-180" : ""
           }`}
         >
-          {/* FRONT */}
+
           <div className="absolute inset-0 backface-hidden flex justify-center items-center px-4 sm:px-6 md:px-8">
             <div className="card w-full max-w-sm max-h-[calc(100vh-10rem)] bg-white shadow-lg rounded-2xl overflow-hidden hover:shadow-black hover:scale-103 transition duration-500 ease-in-out">
               <figure className="h-90 bg-gray-100 overflow-hidden">
@@ -87,7 +87,6 @@ const UserCard = ({ user, isFromProfile }) => {
             </div>
           </div>
 
-          {/* BACK */}
           <div className="absolute inset-0 flex items-center justify-center backface-hidden rotate-y-180">
             <EditProfile user={user} flipBack={() => setFlipped(false)} />
           </div>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { Edit_Profile_API } from "../apis/profileAPIS";
+import { Edit_Profile_API } from "../APIS/profileAPIS";
 
 const EditProfile = ({ user, flipBack }) => {
   const { firstName, lastName, photoUrl, age, gender, about, skills } = user;
@@ -47,11 +47,16 @@ const EditProfile = ({ user, flipBack }) => {
     if(id.toUpperCase() === value) return value;
     return !labelOnly? `${id[0].toUpperCase() + id.slice(1)}: ${value}`: value;
   };
-
-  const btncss =
-    "sm:w-1/4 w-full sm:py-1 sm:py-2 sm:mx-2 sm:my-1 rounded-md border-2 bg-gradient-to-br from-blue-400 to-purple-300 text-white transition-all duration-200 shadow-lg hover:text-black hover:shadow-black hover:scale-105 ";
-  const labelcss =
-    "hover:px-2 hover:bg-gradient-to-br from-purple-300 to-purple-100   transition-all duration-200 hover:shadow-lg hover:text-black hover:shadow-black hover:scale-105";
+   
+  const filterFieldValues = (newValue,id) => {
+    setFieldValues((prev) => {
+      const updated = { ...prev, [id]: newValue };
+      if (newValue.trim() === "") {
+        delete updated[id];
+      }
+      return updated;
+    });
+  }
 
   const fieldOnCard = (id, placeholder, title) => (
     <div key={id} className="w-full h-full">
@@ -67,16 +72,15 @@ const EditProfile = ({ user, flipBack }) => {
         placeholder={placeholder}
         className="w-full px-4 py-2 rounded-lg text-gray-700 border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-black"
         value={fieldValues[id] ?? ""}
-        onChange={(e) =>
-          setFieldValues((prev) => ({
-            ...prev,
-            [id]: e.target.value,
-          }))
+        onChange={(e) => {
+          const newValue = e.target.value;
+          filterFieldValues(newValue,id);
+          }
         }
       />
     </div>
   );
-//-------------------- bug --- if i click on any input type something and remove it and then save it then the new values will be sent to "" but i dont want that. i want initial values to be set in this case.
+
   const fields = [
     { id: "photoUrl", placeholder: "Enter image URL", title: "Photo URL" },
     { id: "lastName", placeholder: "Enter last name", title: "Last Name" },
@@ -84,6 +88,13 @@ const EditProfile = ({ user, flipBack }) => {
     { id: "gender", placeholder: "Enter gender", title: "Gender" },
     { id: "skills", placeholder: "Comma separated", title: "Skills" },
   ];
+
+  
+  const btncss =
+    "sm:w-1/4 w-full sm:py-1 sm:py-2 sm:mx-2 sm:my-1 rounded-md border-2 bg-gradient-to-br from-blue-400 to-purple-300 text-white transition-all duration-200 shadow-lg hover:text-black hover:shadow-black hover:scale-105 ";
+  const labelcss =
+    "hover:px-2 hover:bg-gradient-to-br from-purple-300 to-purple-100   transition-all duration-200 hover:shadow-lg hover:text-black hover:shadow-black hover:scale-105";
+
   return (
     <div className="w-full px-2 md:px-4 max-h-screen overflow-y-auto">
       <div className="grid grid-cols-2 gap-4 py-4 w-full h-full ">
@@ -95,7 +106,6 @@ const EditProfile = ({ user, flipBack }) => {
                   fieldOnCard(field.id, field.placeholder, field.title)
                 )}
 
-                {/* About */}
                 <div className="w-full h-full">
                   <label
                     htmlFor="about"
@@ -109,11 +119,10 @@ const EditProfile = ({ user, flipBack }) => {
                     placeholder="Tell us about yourself"
                     className="w-full px-4 py-2 rounded-lg text-gray-700 border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-black resize-none"
                     value={fieldValues["about"] ?? ""}
-                    onChange={(e) =>
-                      setFieldValues((prev) => ({
-                        ...prev,
-                        about: e.target.value,
-                      }))
+                    onChange={(e) => {
+                        const newValue = e.target.value;
+                        filterFieldValues(newValue,id);
+                      }
                     }
                   />
                 </div>
@@ -122,7 +131,6 @@ const EditProfile = ({ user, flipBack }) => {
           </div>
         </div>
 
-        {/* Right Side */}
         <div className="flex justify-baseline items-center md:col-start-2 md:col-end-3 py-4">
           <div className="w-100 max-w-md border-2 border-black rounded-2xl h-full">
             <div className="card w-full h-[600px] max-h-[calc(100vh-10rem)] bg-white shadow-lg rounded-2xl overflow-hidden hover:shadow-black  transition duration-500 ease-in-out">
@@ -166,7 +174,7 @@ const EditProfile = ({ user, flipBack }) => {
                     }
                   >
                     {(() => {
-                      const value = reviewMode ? fieldValues["skills"] : skills;
+                      const value = reviewMode ? fieldValues["skills"] || skills : skills;
                       if (
                         !value ||
                         (Array.isArray(value)
