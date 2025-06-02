@@ -3,8 +3,8 @@ import NavBar from './NavBar'
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import Footer from './Footer'
 import { useDispatch, useSelector } from 'react-redux'
-import { Fetch_User_Profile_API } from '../apis/profileAPIS'
 import { Toaster } from 'react-hot-toast'
+import { Fetch_User_Profile_API } from '../APIS/profileAPIS';
 
 const Body = () => {
   const dispatch = useDispatch();

@@ -62,9 +62,10 @@ const LinkLists = ({section}) => {
                         src={photoUrl}
                         alt={`${firstName} ${lastName}`}
                       />
-                      <div className="flex-1 md:flex md:items-center">
-                        <div className="text-md md:text-lg mb-1 font-semibold text-gray-800">
-                          {`${firstName} ${lastName}`}
+                      <div className="flex-1 md:flex md:items-center ">
+                        <div className="text-md md:text-lg mb-1 font-semibold text-gray-800 flex items-stretch justify-center gap-2">
+                          <h1>{firstName}</h1>
+                          <h1>{lastName}</h1>
                         </div>
                         {section === "requests" ? (
                           <div className="w-full flex flex-wrap justify-center items-center gap-2 sm:gap-4 px-2 sm:px-5 font-bold text-sm sm:text-base">

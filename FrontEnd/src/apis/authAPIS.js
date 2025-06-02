@@ -1,10 +1,10 @@
 import { BASE_URL } from "../utils/constants";
-import { addUser, removeUser} from "../utils//userSlice";
+import { addUser, removeUser} from "../utils/userSlice";
 import axios from "axios";
-import { persistor } from '../utils//appStore';
+import { persistor } from '../utils/appStore';
 import toast from "react-hot-toast";
-import { resetAllLinkLists } from "../utils//linkSlice";
-import { removeFeed } from "../utils//feedSlice";
+import { resetAllLinkLists } from "../utils/linkSlice";
+import { removeFeed } from "../utils/feedSlice";
 
 export const Sign_In_API = async({signinInfo, dispatch, navigate, setErrorMessage}) => {
 	try{

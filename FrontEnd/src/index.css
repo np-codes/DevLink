@@ -37,17 +37,28 @@
 .perspective {
   perspective: 1000px;
 }
-.transform-style {
+
+.transform-style-3d {
   transform-style: preserve-3d;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  filter: blur(0);
 }
+
 .backface-hidden {
   backface-visibility: hidden;
   -webkit-backface-visibility: hidden;
-
+  filter: blur(0);
 }
+
 .rotate-y-180 {
   transform: rotateY(180deg);
 }
+
 
 .no-scrollbar::-webkit-scrollbar {
   display: none;

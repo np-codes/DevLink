@@ -100,7 +100,7 @@ const EditProfile = ({ user, flipBack }) => {
       <div className="grid grid-cols-2 gap-4 py-4 w-full h-full ">
         <div className="flex justify-end-safe items-center md:col-start-1 md:col-end-2 py-4">
           <div className="w-100 max-w-md border-2 border-black rounded-2xl h-full">
-            <div className="card w-full h-[600px] max-h-[calc(100vh-10rem)] bg-white shadow-xl hover:shadow-2xl hover:shadow-black rounded-2xl overflow-hidden transition duration-500 ease-in-out p-4 md:p-6 space-y-4 overflow-y-auto">
+            <div className="card w-full h-full max-h-[calc(100vh-10rem)] bg-white shadow-lg hover:shadow-black rounded-2xl overflow-hidden transition duration-500 ease-in-out p-4 md:p-6 space-y-4 overflow-y-auto">
               <div className="flex flex-col gap-2 sm:gap-4 md:gap-4">
                 {fields.map((field) =>
                   fieldOnCard(field.id, field.placeholder, field.title)
@@ -120,10 +120,9 @@ const EditProfile = ({ user, flipBack }) => {
                     className="w-full px-4 py-2 rounded-lg text-gray-700 border border-gray-300 shadow-sm focus:outline-none focus:ring-2 focus:ring-black resize-none"
                     value={fieldValues["about"] ?? ""}
                     onChange={(e) => {
-                        const newValue = e.target.value;
-                        filterFieldValues(newValue,id);
-                      }
-                    }
+                      const newValue = e.target.value;
+                      filterFieldValues(newValue, id);
+                    }}
                   />
                 </div>
               </div>
@@ -174,7 +173,9 @@ const EditProfile = ({ user, flipBack }) => {
                     }
                   >
                     {(() => {
-                      const value = reviewMode ? fieldValues["skills"] || skills : skills;
+                      const value = reviewMode
+                        ? fieldValues["skills"] || skills
+                        : skills;
                       if (
                         !value ||
                         (Array.isArray(value)
@@ -215,15 +216,17 @@ const EditProfile = ({ user, flipBack }) => {
                     Retry
                   </button>
                 ) : (
-                  <button
-                    type="button"
-                    className={btncss}
-                    onClick={() => {
-                      setReviewMode(!reviewMode);
-                    }}
-                  >
-                    REVIEW
-                  </button>
+                  Object.keys(fieldValues).length !== 0 && (
+                    <button
+                      type="button"
+                      className={btncss}
+                      onClick={() => {
+                        setReviewMode(!reviewMode);
+                      }}
+                    >
+                      REVIEW
+                    </button>
+                  )
                 )}
                 <button
                   type="button"

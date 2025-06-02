@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { Send_Connection_Request_API } from '../APIS/linkAPIS';
 
 const UserCard = ({ user, isFromProfile }) => {
-  if (!user) return;
+  if (!user) return null;
 
   const dispatch = useDispatch();
   const [flipped, setFlipped] = useState(false);
@@ -16,15 +16,14 @@ const UserCard = ({ user, isFromProfile }) => {
 
   return (
     <div className="w-full h-full flex justify-center items-center overflow-hidden px-2 sm:px-4 md:px-6">
-      <div className="relative w-full h-full max-w-full [perspective:1000px] flex items-center justify-center">
+      <div className="relative w-full h-full max-w-full [perspective:1000px] ">
         <div
           className={`relative w-full h-full transition-transform duration-700 [transform-style:preserve-3d] ${
             flipped ? "rotate-y-180" : ""
           }`}
         >
-
           <div className="absolute inset-0 backface-hidden flex justify-center items-center px-4 sm:px-6 md:px-8">
-            <div className="card w-full max-w-sm max-h-[calc(100vh-10rem)] bg-white shadow-lg rounded-2xl overflow-hidden hover:shadow-black hover:scale-103 transition duration-500 ease-in-out">
+            <div className="card w-[320px] h-[480px] sm:w-[360px] sm:h-[540px]   max-w-sm max-h-[calc(100vh-10rem)] bg-white shadow-lg rounded-2xl overflow-hidden hover:shadow-black hover:scale-103 transition duration-500 ease-in-out">
               <figure className="h-90 bg-gray-100 overflow-hidden">
                 <img
                   src={photoUrl}
@@ -49,7 +48,7 @@ const UserCard = ({ user, isFromProfile }) => {
                   <div className="flex flex-col gap-1 text-sm text-gray-700 border-t border-gray-200 pt-3">
                     {age && <p>🎂 Age: {age}</p>}
                     {gender && <p>🚻 Gender: {gender}</p>}
-                    {(skills != 0 || !skills) && (
+                    {skills != 0 && skills && (
                       <p>
                         🤹 Skills:{" "}
                         {Array.isArray(skills) ? skills.join(", ") : skills}

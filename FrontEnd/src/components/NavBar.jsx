@@ -40,7 +40,7 @@ const NavBar = () => {
             <p className="text-base font-medium hidden sm:block">
               Welcome, {user.firstName}
             </p>
-            <div className="p-0 hover:scale-105 transition duration-300 cursor-pointer">
+            <Link to="/profile" className="flex-1">
               <div className="w-10 h-10 rounded-full overflow-hidden border-2 border-gray-400 shadow-md">
                 <img
                   src={user.photoUrl}
@@ -48,7 +48,7 @@ const NavBar = () => {
                   className="w-full h-full object-cover"
                 />
               </div>
-            </div>
+            </Link>
           </div>
         )}
       </div>
