@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
-import { Logout_API } from '../APIS/authAPIS';
+import { Logout_API } from '../apis/authAPIS';
 import { useDispatch, useSelector } from 'react-redux';
 
 const Footer = () => {

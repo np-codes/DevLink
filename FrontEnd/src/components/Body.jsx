@@ -4,7 +4,7 @@ import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import Footer from './Footer'
 import { useDispatch, useSelector } from 'react-redux'
 import { Toaster } from 'react-hot-toast'
-import { Fetch_User_Profile_API } from '../APIS/profileAPIS';
+import { Fetch_User_Profile_API } from '../apis/profileAPIS';
 
 const Body = () => {
   const dispatch = useDispatch();

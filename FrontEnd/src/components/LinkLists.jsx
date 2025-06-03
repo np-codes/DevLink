@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import FriendCard from './FriendCard';
-import { Action_On_Received_Request_API } from '../APIS/linkAPIS';
+import { Action_On_Received_Request_API } from '../apis/linkAPIS';
 
 const LinkLists = ({section}) => {
   const [flipped, setFlipped] = useState(false)

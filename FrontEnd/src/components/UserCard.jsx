@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import EditProfile from './EditProfile';
 import { useDispatch } from 'react-redux';
-import { Send_Connection_Request_API } from '../APIS/linkAPIS';
+import { Send_Connection_Request_API } from '../apis/linkAPIS';
 
 const UserCard = ({ user, isFromProfile }) => {
   if (!user) return null;
