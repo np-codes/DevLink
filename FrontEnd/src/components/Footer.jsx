@@ -88,7 +88,6 @@ const Footer = () => {
               <Link
                 to="/mylinks"
                 className="block px-3 py-1 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-green-400 hover:to-purple-500 transition-all duration-200 rounded"
-                onClick={() => setDropDownOpen(false)}
               >
                 MyLinks
               </Link>

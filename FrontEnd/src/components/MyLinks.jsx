@@ -13,6 +13,7 @@ const MyLinks = () => {
   useEffect(() => {
     fetchUserLinks();
   }, []);
+  
   return (
     <div className="w-full h-full  bg-gradient-to-r from-purple-300 via-blue-200 to-green-300 grid grid-cols-2 gap-2 sm:gap-4 md:gap-6 p-2 sm:p-4 md:p-6 ">
       <div className="bg-gray-200  rounded-xl p-2 sm:p-3 md:p-4 shadow transition-all duration-500 hover:shadow-lg hover:shadow-black hover:scale-102 col-start-1 col-end-2 min-h-[400px] flex flex-col">
