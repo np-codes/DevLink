@@ -83,7 +83,7 @@ const Footer = () => {
         </div>
       ) : (
         <div>
-          <footer className="footer h-15 bg-base-300 flex justify-center text-neutral-content items-center p-4">
+          <footer className="footer h-15 bg-base-100 flex justify-center text-neutral-content items-center p-4">
             <nav className="flex w-full justify-evenly text-md sm:text-lg  md:text-xl">
               <Link
                 to="/mylinks"

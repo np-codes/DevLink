@@ -48,6 +48,10 @@ const LinkLists = ({section}) => {
             <div
               tabIndex={0}
               className="flex-1 min-h-0 w-full flex justify-center overflow-y-auto no-scrollbar touch-pan-y"
+              style={{
+                WebkitOverflowScrolling: "touch",
+                touchAction: "pan-y",
+              }}
             >
               <ul className="w-full max-w-3xl space-y-2 sm:space-y-3 md:space-y-4 p-2 md:p-4 sm:p-3">
                 {links.map((friend) => {
