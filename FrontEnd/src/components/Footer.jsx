@@ -14,7 +14,7 @@ const Footer = () => {
     <div>
       {!user ? (
         <div>
-          <footer className="footer h-15 bg-base-100 flex justify-center md:grid-rows-2 sm:flex-row text-neutral-content items-center p-4">
+          <footer className="footer h-15 bg-base-300 flex justify-center md:grid-rows-2 sm:flex-row text-neutral-content items-center p-4">
             <aside className="flex row-start-1 row-end-2  items-center gap-4">
               <svg
                 width="36"
@@ -83,7 +83,7 @@ const Footer = () => {
         </div>
       ) : (
         <div>
-          <footer className="footer h-15 bg-base-100 flex justify-center text-neutral-content items-center p-4">
+          <footer className="footer h-15 bg-base-300 flex justify-center text-neutral-content items-center p-4">
             <nav className="flex w-full justify-evenly text-md sm:text-lg  md:text-xl">
               <Link
                 to="/mylinks"
