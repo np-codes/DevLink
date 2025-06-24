@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import FriendCard from './FriendCard';
 import { Action_On_Received_Request_API } from '../apis/linkAPIS';
+import { Link } from 'react-router-dom';
 
 const LinkLists = ({section}) => {
   const [flipped, setFlipped] = useState(false)
@@ -106,6 +107,13 @@ const LinkLists = ({section}) => {
                             >
                               VIEW
                             </button>
+                            <Link to={"/chat/"+ _id}>
+                              <button
+                                className="badge badge-outline py-2 px-4 transition-all duration-200 hover:bg-green-400 hover:text-white hover:scale-105"
+                              >
+                                Chat
+                              </button>
+                            </Link>
                           </div>
                         )}
                       </div>

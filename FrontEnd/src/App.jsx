@@ -7,6 +7,7 @@ import Feed from "./components/Feed";
 import { PersistGate } from "redux-persist/integration/react";
 import MyLinks from "./components/MyLinks";
 import AuthPage from "./components/AuthPage";
+import Chat from "./components/Chat";
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
                 <Route  path="/signup" element={<AuthPage section={"Sign Up"} />}/>
                 <Route path="/profile" element={<Profile />} />
                 <Route path="/mylinks" element={<MyLinks />} />
+                <Route path="/chat/:recipientId" element={<Chat />} />
               </Route>
             </Routes>
           </BrowserRouter>
