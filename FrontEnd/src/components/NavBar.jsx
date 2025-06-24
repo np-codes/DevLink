@@ -12,6 +12,7 @@ const NavBar = () => {
     if (pathname.startsWith("/profile")) return "Profile";
     if (pathname.startsWith("/settings")) return "Settings";
     if (pathname.startsWith("/mylinks")) return "MyLinks";
+    if (pathname.startsWith("/chats")) return "Chats";
     return;
   }
   

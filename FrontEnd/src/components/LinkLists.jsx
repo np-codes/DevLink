@@ -107,7 +107,7 @@ const LinkLists = ({section}) => {
                             >
                               VIEW
                             </button>
-                            <Link to={"/chat/"+ _id}>
+                            <Link to={"/chats/"+ _id}>
                               <button
                                 className="badge badge-outline py-2 px-4 transition-all duration-200 hover:bg-green-400 hover:text-white hover:scale-105"
                               >

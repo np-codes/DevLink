@@ -92,6 +92,12 @@ const Footer = () => {
                 MyLinks
               </Link>
               <Link
+                to="/chats"
+                className="block px-3 py-1 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-green-400 hover:to-purple-500 transition-all duration-200 rounded"
+              >
+                Chats
+              </Link>
+              <Link
                 to="/signin"
                 className="block px-3 py-1 hover:text-transparent hover:bg-clip-text hover:bg-gradient-to-r hover:from-green-400 hover:to-purple-500 transition-all duration-200 rounded"
                 onClick={() => handleLogout()}

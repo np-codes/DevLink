@@ -9,7 +9,7 @@ import linkReducer from "./linkSlice"
 const persistConfig = {
     key: "root",
     storage,
-    whitelist: ['user']
+    whitelist: ['user','links']
 }
 const rootReducer = combineReducers({
     user: userReducer,
