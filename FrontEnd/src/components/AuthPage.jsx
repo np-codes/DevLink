@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
-import { Sign_In_API, Sign_Up_API } from '../APIS/authAPIS';
+import { Sign_In_API, Sign_Up_API } from '../apis/authAPIS';
 
 
 const AuthPage = ({section}) => {
