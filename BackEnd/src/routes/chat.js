@@ -7,7 +7,6 @@ const Message = require("../models/message")
 router.get("/chats/:userId", userAuth, async(req, res) => {
     try{
         const {userId}  = req?.params;
-        console.log(userId)
         const chats = await Chat.find({participants: userId})
             .populate("participants","firstName lastName photoUrl")
             .sort({updatedAt: -1});

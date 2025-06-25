@@ -40,7 +40,6 @@ const ChatBox = () => {
         })
 
         socketRef.current.on("receiveMessage", ({...message}) => {
-            console.log(message);
             const {senderId, text, timestamp} = message
             setMessages((prev) => [...prev, { senderId, text, timestamp}]);
         })
