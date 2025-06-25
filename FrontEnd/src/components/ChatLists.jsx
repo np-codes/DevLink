@@ -32,7 +32,7 @@ const ChatLists = () => {
             return (
               <div
                 key={index}
-                className="flex justify-between items-center bg-white dark:bg-base-100 p-3 md:p-4 rounded-2xl shadow-md hover:shadow-lg transition-shadow duration-200"
+                className="flex justify-between items-center bg-white dark:bg-base-100 p-3 md:p-4 rounded-2xl hover:shadow-md hover:shadow-black hover:scale-102 transition duration-300"
                 onClick={() => navigate(`/chats/${_id}`)}
               >
                 <div className="flex-1 flex justify-center-safe">

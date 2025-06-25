@@ -47,7 +47,7 @@ const initializeSocket = (server) => {
             const bufferMessages = buffer?.messages || [];
             const allMessages = [...dbMessages, ...bufferMessages];
             allMessages.sort((a,b) => new Date(a.timestamp) - new Date(b.timestamp));
-            socket.emit("previousMessages", allMessages)
+            socket.emit("previousMessages", allMessages);
         });
         
         socket.on("sendMessage", ({userId, recipientId, text}) => {
