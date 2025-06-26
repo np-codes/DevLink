@@ -1,4 +1,4 @@
-const socket = require("socket.io");
+const {Server} = require("socket.io");
 const { getRoomId } = require("./getRoomId");
 const socketAuth = require("../middleware/socketAuth");
 const Chat = require("../models/chat");
@@ -8,7 +8,7 @@ const chatBuffers = new Map();
 const roomUsers = new Map();
 
 const initializeSocket = (server) => {
-    const io = socket(server, {
+    const io = new Server(server, {
         cors: {
             origin: "http://localhost:5173",
             credentials: true,
@@ -47,7 +47,7 @@ const initializeSocket = (server) => {
             const bufferMessages = buffer?.messages || [];
             const allMessages = [...dbMessages, ...bufferMessages];
             allMessages.sort((a,b) => new Date(a.timestamp) - new Date(b.timestamp));
-            socket.emit("previousMessages", allMessages);
+            socket.emit("previousMessages", allMessages)
         });
         
         socket.on("sendMessage", ({userId, recipientId, text}) => {
