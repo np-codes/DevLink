@@ -1,6 +1,6 @@
 const {Server} = require("socket.io");
-const { getRoomId } = require("./getRoomId");
 const socketAuth = require("../middleware/socketAuth");
+const getRoomId = require("./getRoomId")
 const Chat = require("../models/chat");
 const Message = require("../models/message");
 
