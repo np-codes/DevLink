@@ -1,4 +1,4 @@
-const socket = require("socket.io");
+const { Server } = require("socket.io");
 const socketAuth = require("../middleware/socketAuth");
 const getRoomId = require("./getRoomId")
 const Chat = require("../models/chat");
@@ -8,7 +8,7 @@ const chatBuffers = new Map();
 const roomUsers = new Map();
 
 const initializeSocket = (server) => {
-    const io = socket (server, {
+    const io = new Server (server, {
         cors: {
             origin: "http://localhost:5173",
             credentials: true,
