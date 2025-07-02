@@ -64,7 +64,8 @@ const ChatBox = () => {
         });
         setNewMessage("");
     }
-
+    if(!recipient) return null;
+    
     return (
       <div className="flex flex-col h-full max-w-2xl mx-auto  rounded-2xl shadow-lg overflow-hidden p-6">
         <div className="flex items-center gap-4 p-3 border bg-gray-400 ">
