@@ -3,6 +3,7 @@ import { BASE_URL } from "./constants";
 
 export const createSocketConnection = (token) => {
     return io(BASE_URL, {
+        path: "/api/socket.io",
         auth: {
             token,
         }

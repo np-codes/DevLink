@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react'
 import { Fetch_Chats_List } from '../apis/chatAPIS';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { User_Connections_API, User_Requests_API } from '../apis/userAPIS';
 
 const ChatLists = () => {
     const [ chatsList, setChatsList ] = useState(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const userId = useSelector((store) => store?.user?._id)
     if (!userId) return;
 
     const fetchChatList = async() => {
+        User_Connections_API({ dispatch });
+        User_Requests_API({ dispatch });
         const data = await Fetch_Chats_List(userId)
         setChatsList(data)
     }
