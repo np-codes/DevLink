@@ -12,7 +12,7 @@ const app = express();
 // Universal Path
 app.use(
     cors({
-        origin :  "http://localhost:5173",
+        origin :  ["http://localhost:5173", "http://18.116.73.248"],
         credentials : true
     })
 );
