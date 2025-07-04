@@ -9,6 +9,7 @@ const roomUsers = new Map();
 
 const initializeSocket = (server) => {
     const io = new Server (server, {
+        path: "/api/socket.io",
         cors: {
             origin: ["http://localhost:5173", "http://18.116.73.248"],
             credentials: true,
