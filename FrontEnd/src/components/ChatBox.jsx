@@ -31,7 +31,7 @@ const ChatBox = () => {
         socketRef.current = createSocketConnection(token);
 
         socketRef.current.on("connect_error", (err) => {
-          console.error("Connection error:", err.message);
+          console.error("Connection error:", err);
         });
         
         socketRef.current.emit("joinChat", {userId, recipientId});
