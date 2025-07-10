@@ -121,7 +121,7 @@ const EditProfile = ({ user, flipBack }) => {
                     value={fieldValues["about"] ?? ""}
                     onChange={(e) => {
                       const newValue = e.target.value;
-                      filterFieldValues(newValue, id);
+                      filterFieldValues(newValue, "about");
                     }}
                   />
                 </div>
