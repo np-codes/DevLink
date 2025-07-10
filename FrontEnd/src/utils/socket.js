@@ -7,5 +7,6 @@ export const createSocketConnection = (token) => {
             token,
         },
         transports: ["websocket"],
+        path: "/api/socket.io",
     });
 };
